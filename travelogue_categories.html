@@ -1,0 +1,38 @@
+{% extends "TravelogueApp_base.html" %}
+{% block content %}
+{% include "sidePanel.html" %}
+<div class="appContainer">
+    <div>
+        <h1 class="header">Manage Travelogue Categories</h1>
+        <p class="lead text-center">
+            Tag your posts with a variety of categories. They must be created here before being applied to a Travelogue entry.
+            <br>
+            <a class="btn-sm btn-info " href="{% url 'travelogue_index' %}">Back to Travelogue Home</a>            
+            <a class="btn-sm btn-info" href="{% url 'travelogue_create' %}">Create a Blog Entry</a>
+        </p>    
+    </div>
+
+    <div class="col-med-8 mt-3">
+        <div class="card travelogue-Form comments-spacing">
+            <form class="no-border mx-auto" method="POST">
+                {% csrf_token %}
+                <p class="category-header">Enter a new category to use on blog posts:</p>   
+                {{ form.name }}
+                <button type="submit" class="btn-sm btn-info">Add</button>
+            </form>
+        </div>
+        <div class="card travelogue-Form comments-spacing">
+            <p class="category-header">Your Categories</p>
+            <hr>
+            <div class="category-container">
+            <!-- get user submitted data-->
+                {% for item in categories %}           
+                 <li>
+                    {{ item.name }}
+                </li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}
